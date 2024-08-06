@@ -4,16 +4,16 @@ const dotenv = require("dotenv").config()
 const morgan = require("morgan")
 const rootroute = require('./routes/rootroute')
 const connectDB = require("./config/db")
+const productroute=require("./controllers/products/getproductcontroller")
 
 const app =express()
-const PORT = process.env.PORT ||  7000 || 8000 
+const PORT = process.env.PORT || 7000 || 8000 
 
-app.get('/',(req,res)=>{
-    res.send("Api is working");   
-})
-
-app.use('/fashionproducts',rootroute)
+app.use('/',rootroute)
 connectDB()
+app.use('/products',productroute)
+
+
 
 app.listen(PORT,()=>{
     console.log(PORT);

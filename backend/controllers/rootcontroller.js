@@ -1,8 +1,8 @@
 const rootcontroller = (req,res)=>{
     res.send(`
-        <h1> Eiser Cart <h1>
+        <h1> Male Fashion <h1>
         `)
-    console.log("Cart page")
+    console.log("Product page")
 }
 
 module.exports = rootcontroller
