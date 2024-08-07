@@ -10,16 +10,6 @@ const app = express();
 
 connectDB();
 
-// get request
-// app.get("/", (req, res) => {
-//   res.send("Hello World");
-// });
-
-// get request
-// app.get("/users", (req, res) => {
-//   res.send(usersdata);
-// });
-
 app.use("/", rootroute);
 app.use("/products", productroute);
 

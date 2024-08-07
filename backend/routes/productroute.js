@@ -3,8 +3,9 @@ const getproductcontroller = require("../controllers/products/getproductcontroll
 const router = express.Router();
 
 router.get("/", getproductcontroller);
-router.get("/id/:id", getproductcontroller);
+router.get("/name/:name", getproductcontroller);
 router.get("/category/:category", getproductcontroller);
-router.get("/subcategory/:subcategory", getproductcontroller);
+router.get("/sub_category/:sub_category", getproductcontroller);
+router.get("/rating/:rating", getproductcontroller);
 
 module.exports = router;

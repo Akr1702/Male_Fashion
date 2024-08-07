@@ -2,7 +2,8 @@ const mongoose = require("mongoose")
 const ProductCollection = require("../../models/ProductSchema")
 const getproductcontroller = async (req, res) => {
     try {
-        const { category, name } = req.params
+        const {category} = req.params
+        const {name ,sub_category} = req.params
         let products;
         if (category) {
             const searchcategory = category.toLowerCase()
@@ -15,6 +16,13 @@ const getproductcontroller = async (req, res) => {
             const searchname = name.toLowerCase()
             products = await ProductCollection.find({
                 name: { $regex: new RegExp(searchname, "i") }
+            })
+        }
+
+        else if (sub_category) {
+            const searchsub = sub_category.toLowerCase()
+            products = await ProductCollection.find({
+                sub_category: { $regex: new RegExp(searchsub, "i") }
             })
         }
 
