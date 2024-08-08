@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const ProductCollection = require("../../models/ProductSchema")
 const getproductcontroller = async (req, res) => {
     try {
-        const {category} = req.params
+        const {_id,category} = req.params
         const {name ,sub_category} = req.params
         let products;
         if (category) {
@@ -19,11 +19,37 @@ const getproductcontroller = async (req, res) => {
             })
         }
 
+        else if (_id) {
+            
+            products = await ProductCollection.find({
+            _id:_id })
+        }
+
         else if (sub_category) {
             const searchsub = sub_category.toLowerCase()
             products = await ProductCollection.find({
                 sub_category: { $regex: new RegExp(searchsub, "i") }
             })
+        }
+
+        else if (req.path.includes("/random")) {  
+            products = await ProductCollection.aggregate([
+                {
+                $sample:{size:5}
+                }
+            ])
+        }
+
+        else if (req.path.includes("/top-rated")) {  
+            products = await ProductCollection.find().sort({rating: -1}).limit(5)
+        }
+
+        else if (req.path.includes("/lowtohigh")) {  
+            products = await ProductCollection.find().sort({new_price: 1}).limit(5)
+        }
+
+        else if (req.path.includes("/hightolow")) {  
+            products = await ProductCollection.find().sort({new_price: -1}).limit(5)
         }
 
         else {
